@@ -4,7 +4,7 @@ This is a portable version of [HandBrake](https://github.com/HandBrake/HandBrake
 
 ### Usage
 
-1. Download the correct version for your system. For most users that's **x86_x64**.
+1. Download the correct version for your system from [Releases](https://github.com/YZgitter/HandBrake-Portable/releases). For most users that's **x86_x64**.
 2. Extract the downloaded archive and run HandBrake.exe.
 
 By default, the settings are stored within the app folder. You can change this and make some other adjustments by modifying the *portable.ini* file.
