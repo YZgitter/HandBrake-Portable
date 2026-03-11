@@ -12,4 +12,4 @@ Automatic updates are not supported. If you want to update and keep the settings
 
 ### Build Process Transparency
 
-The code for HandBrake-Portable is sourced from the [official HandBrake repository](https://github.com/HandBrake/HandBrake). It was downloaded, compiled, and released entirely by GitHub Actions. You can review this process by examining the .yml files.
+The source code for HandBrake-Portable was downloaded from the [official HandBrake repository](https://github.com/HandBrake/HandBrake). The code download, compilation, and release were all handled entirely by GitHub Actions. You can review this process by examining the [Action workflows](https://github.com/YZgitter/HandBrake-Portable/actions).
