@@ -11,4 +11,4 @@ By default, the settings are stored in the app folder, in a folder called *stora
 
 ### Build Process Transparency
 
-The source code for HandBrake-Portable is the [official HandBrake repository](https://github.com/HandBrake/HandBrake). The code download, compilation, and release are performed through automated [Action workflows](https://github.com/YZgitter/HandBrake-Portable/actions).
+The source code for HandBrake-Portable is the [official HandBrake repository](https://github.com/HandBrake/HandBrake). The code download, compilation, and release happen entirely on GitHub servers through automated [Action workflows](https://github.com/YZgitter/HandBrake-Portable/actions).
