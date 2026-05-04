@@ -1,6 +1,6 @@
 ## HandBrake-Portable
 
-This is a portable version of [HandBrake](https://handbrake.fr) for Windows. Unlike the official version, it doesn't require the installation of .NET Desktop Runtime, because the .NET dependencies are included with the app.
+This is a portable version of [HandBrake](https://handbrake.fr) for Windows. Unlike the official version, it does not require the installation of .NET Desktop Runtime, because the .NET dependencies are included with the app.
 
 ### Usage
 
