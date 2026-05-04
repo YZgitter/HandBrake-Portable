@@ -1,0 +1,101 @@
+name: Build 1.11.1 x86 and ARM
+
+on:
+  workflow_dispatch
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release_x86:
+    runs-on: windows-latest
+    
+    steps: 
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with: 
+          dotnet-version: '10.0'
+          
+      - name: Download and extract the source code
+        run: |
+          Invoke-WebRequest -Uri "https://github.com/HandBrake/HandBrake/archive/refs/tags/1.11.1.zip" -OutFile "source.zip"
+          Expand-Archive -Path "source.zip" -DestinationPath "extracted"
+
+      - name: Compile x86 with retry (because it fails the first time)
+        uses: nick-fields/retry@v3
+        with:
+          timeout_seconds: 300
+          max_attempts: 5
+          retry_on: error
+          command: dotnet publish -c release -r win-x64 --self-contained true "extracted/HandBrake-1.11.1/win/CS/HandBrake.sln"          
+
+      - name: Download and extract doc+hb.dll
+        run: |
+          Invoke-WebRequest -Uri "https://github.com/HandBrake/HandBrake/releases/download/1.11.1/LibHB-1.11.1-win-x86_64.zip" -OutFile "hbdll-x86.zip"
+          Expand-Archive -Path "hbdll-x86.zip" -DestinationPath "extracted/HandBrake-1.11.1/win/CS/HandBrakeWPF/bin/Release/win-x64/publish"
+      
+      - name: Rename files and folders for convenience
+        run: |
+          Rename-Item -Path "extracted/HandBrake-1.11.1/win/CS/HandBrakeWPF/bin/Release/win-x64/publish/portable.ini.template" -NewName "portable.ini"
+          Rename-Item -Path "extracted/HandBrake-1.11.1/win/CS/HandBrakeWPF/bin/Release/win-x64/publish" -NewName "HandBrake-Portable"
+                    
+      - name:  Compress with 7-zip
+        run: |
+          7z a -mx=9 "HandBrake-Portable-1.11.1-x86_64.7z" "./extracted/HandBrake-1.11.1/win/CS/HandBrakeWPF/bin/Release/win-x64/HandBrake-Portable"
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with: 
+          tag_name: 1.11.1
+          name: HandBrake-Portable 1.11.1
+          body: build version 1.11.1 for Windows x86-64 and Windows arm64
+          files: HandBrake-Portable-1.11.1-x86_64.7z
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+  build-and-release_ARM:
+    runs-on: windows-latest
+    
+    steps: 
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with: 
+          dotnet-version: '10.0'
+          
+      - name: Download and extract the source code
+        run: |
+          Invoke-WebRequest -Uri "https://github.com/HandBrake/HandBrake/archive/refs/tags/1.11.1.zip" -OutFile "source.zip"
+          Expand-Archive -Path "source.zip" -DestinationPath "extracted"
+
+      - name: Compile ARM with retry (because it fails the first time)
+        uses: nick-fields/retry@v3
+        with:
+          timeout_seconds: 300
+          max_attempts: 5
+          retry_on: error
+          command: dotnet publish -c release -r win-arm64 --self-contained true "extracted/HandBrake-1.11.1/win/CS/HandBrake.sln"          
+
+      - name: Download and extract doc+hb.dll
+        run: |
+          Invoke-WebRequest -Uri "https://github.com/HandBrake/HandBrake/releases/download/1.11.1/LibHB-1.11.1-win-aarch64.zip" -OutFile "hbdll-ARM.zip"
+          Expand-Archive -Path "hbdll-ARM.zip" -DestinationPath "extracted/HandBrake-1.11.1/win/CS/HandBrakeWPF/bin/Release/win-arm64/publish"
+      
+      - name: Rename files and folders for convenience
+        run: |
+          Rename-Item -Path "extracted/HandBrake-1.11.1/win/CS/HandBrakeWPF/bin/Release/win-arm64/publish/portable.ini.template" -NewName "portable.ini"
+          Rename-Item -Path "extracted/HandBrake-1.11.1/win/CS/HandBrakeWPF/bin/Release/win-arm64/publish" -NewName "HandBrake-Portable_ARM"
+                    
+      - name:  Compress with 7-zip
+        run: |
+          7z a -mx=9 "HandBrake-Portable-1.11.1-arm64.7z" "./extracted/HandBrake-1.11.1/win/CS/HandBrakeWPF/bin/Release/win-arm64/HandBrake-Portable_ARM"
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with: 
+          tag_name: 1.11.1
+          name: HandBrake-Portable 1.11.1
+          body: build version 1.11.1 for Windows x86-64 and Windows arm64
+          files: HandBrake-Portable-1.11.1-arm64.7z
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
