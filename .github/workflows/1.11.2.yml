@@ -48,6 +48,7 @@ jobs:
         with: 
           tag_name: 1.11.2
           name: HandBrake-Portable 1.11.2
+          body: HandBrake-Portable 1.11.2 for Windows x86-64 and arm64
           files: HandBrake-Portable-1.11.2-x86_64.7z
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -94,6 +95,7 @@ jobs:
         with: 
           tag_name: 1.11.2
           name: HandBrake-Portable 1.11.2
+          body: HandBrake-Portable 1.11.2 for Windows x86-64 and arm64
           files: HandBrake-Portable-1.11.2-arm64.7z
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
