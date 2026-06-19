@@ -9,7 +9,7 @@ This is a portable version of [HandBrake](https://handbrake.fr) for Windows. Unl
 
 By default, the settings are stored in the app folder, in a folder called *storage*. You can change this and make some other adjustments by modifying the *portable.ini* file.
 
-Automatic updates are not supported. If you want to update and keep the settings and presets, the simplest way is to copy the existing *storage* folder to the new version.
+Automatic updates are not supported. If you want to update and keep the settings and presets, the simplest way is to copy the existing *storage* folder to the new version. To get notified of new releases, subscribe to [the RSS feed](https://github.com/YZgitter/HandBrake-Portable/releases.atom).
 
 ### Build Process Transparency
 
@@ -17,4 +17,4 @@ The source code for HandBrake-Portable is the [official HandBrake repository](ht
 
 ### Disclaimer
 
-While HandBrake-Portable uses the HandBrake source code, the HandBrake team is not involved with this project. HandBrake-Portable is an unofficial fork, created to address a specific need.
+While HandBrake-Portable uses the HandBrake source code, the HandBrake team is not involved with this project.
